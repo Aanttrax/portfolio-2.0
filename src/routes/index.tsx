@@ -1,13 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { experiences } from "@/data/experiences.data";
 import { skills } from "@/data/skills.data";
 import { process } from "@/data/processes.data";
-import { contacts } from "@/data/contacts.data";
 import { projects } from "@/data/projects.data";
 import { motion } from "framer-motion";
 import { ArrowRight, Globe, Sparkles } from "lucide-react";
 import heroPortrait from "@/assets/hero-portrait.webp";
-import contactMockup from "@/assets/contact-mockup.jpg";
+import Navbar from "@/components/ui/navbar.component";
+import Contact from "@/components/ui/contact.component";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,25 +54,7 @@ function Portfolio() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* NAV */}
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center justify-between px-6 md:px-12 py-6"
-      >
-        <div className="text-[10px] md:text-xs tracking-[0.2em] font-semibold">
-          <div className="text-accent-red">FULL STACK & DEVOPS ENGINEER</div>
-          <div className="text-foreground/80">DIGITAL CREATOR</div>
-        </div>
-        <div className="flex items-center gap-2 text-[10px] md:text-xs tracking-[0.2em] font-semibold">
-          <span>AVAILABLE FOR FREELANCE</span>
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-red opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-red" />
-          </span>
-        </div>
-      </motion.header>
-
+      <Navbar />
       {/* HERO */}
       <section className="relative px-6 md:px-12 pb-20">
         <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_1.1fr_1fr] gap-8 items-end min-h-[80vh]">
@@ -188,12 +170,12 @@ function Portfolio() {
               Showing {Math.min(3, projects.length)} of {projects.length} projects
             </p>
           </div>
-          <a
-            href="#"
+          <Link
+            to="/projects"
             className="hidden md:flex items-center gap-2 text-xs tracking-widest font-semibold text-accent-red hover:gap-4 transition-all"
           >
             VIEW ALL PROJECTS <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
           {projects.slice(0, 3).map((p, i) => (
@@ -348,75 +330,7 @@ function Portfolio() {
       </section>
 
       {/* CONTACT */}
-      <section className="px-6 md:px-12 py-16 border-t border-border grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr] gap-8 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h3 className="font-display text-4xl md:text-5xl leading-none">
-            LET'S WORK
-            <br />
-            TOGETHER
-            <Sparkles className="inline h-6 w-6 ml-3 text-accent-red" />
-          </h3>
-          <p className="mt-6 text-sm text-muted-foreground max-w-sm">
-            I'm currently open for new projects and collaborations. Let's create something amazing
-            that drives results.
-          </p>
-          <a
-            href="mailto:Arielrt20@gmail.com"
-            className="mt-8 inline-flex items-center gap-3 group"
-          >
-            <span className="h-10 w-10 rounded-full bg-accent-red flex items-center justify-center transition-transform group-hover:translate-x-1">
-              <ArrowRight className="h-4 w-4 text-primary-foreground" />
-            </span>
-            <span className="text-xs tracking-widest font-semibold">AVAILABLE FOR FREELANCE</span>
-          </a>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="space-y-3"
-        >
-          {contacts.map((c) => (
-            <a
-              key={c.text}
-              href={c.href}
-              target={c.href ? "_blank" : undefined}
-              rel={c.href ? "noopener noreferrer" : undefined}
-              className="flex items-center gap-4 rounded-md border border-border px-4 py-3 hover:border-accent-red transition-colors"
-            >
-              <span className="h-10 w-10 rounded-full border border-accent-red flex items-center justify-center shrink-0">
-                <c.icon className="h-4 w-4 text-accent-red" />
-              </span>
-
-              <span className="text-sm truncate">{c.text}</span>
-            </a>
-          ))}
-        </motion.div>{" "}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <img
-            src={contactMockup}
-            alt="Portfolio mockup"
-            loading="lazy"
-            className="w-full rounded-md object-cover"
-          />
-        </motion.div>
-      </section>
-
-      <footer className="px-6 md:px-12 py-8 border-t border-border text-[10px] tracking-widest text-muted-foreground flex justify-between">
-        <span>© {new Date().getFullYear()} ARIEL RODRIGUEZ</span>
-        <span>ALL RIGHTS RESERVED</span>
-      </footer>
+      <Contact />
     </main>
   );
 }

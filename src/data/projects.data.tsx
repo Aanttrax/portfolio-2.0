@@ -12,7 +12,8 @@ export const projects = [
     img: project1,
     title: "Portfolio-2.0",
     cat: "Landing Page",
-    description: "",
+    description:
+      "Modern personal portfolio built with React, TypeScript, Tailwind CSS and Framer Motion. Featuring TanStack Router, responsive UI, CI/CD automation, and modern development practices to showcase full-stack projects, scalable architectures, cloud infrastructure and DevOps experience.",
     link: "https://aanttrax.github.io/portfolio-2.0/",
   },
   {
