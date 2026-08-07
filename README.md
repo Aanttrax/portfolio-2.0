@@ -1,5 +1,7 @@
 # Ariel Rodriguez — Portfolio
 
+![Portfolio logo](./screenShot/screenshot1.webp)
+
 Personal portfolio of **Ariel Rodriguez**, Full Stack & DevOps Engineer. A static single-page application built with React that showcases experience, skills, selected projects, work process, and contact information.
 
 Live at [https://aanttrax.github.io/portfolio-2.0/](https://aanttrax.github.io/portfolio-2.0/)
