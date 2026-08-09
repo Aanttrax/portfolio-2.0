@@ -172,6 +172,7 @@ function Portfolio() {
           </div>
           <Link
             to="/projects"
+            search={{ page: 1 }}
             className="hidden md:flex items-center gap-2 text-xs tracking-widest font-semibold text-accent-red hover:gap-4 transition-all"
           >
             VIEW ALL PROJECTS <ArrowRight className="h-4 w-4" />
@@ -199,7 +200,9 @@ function Portfolio() {
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <span className="font-display text-2xl text-accent-red">{p.n}</span>
+                  <span className="font-display text-2xl text-accent-red">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <div>
                     <div className="font-bold tracking-wide text-sm">{p.title.toUpperCase()}</div>
                     <div className="text-[10px] tracking-widest text-muted-foreground uppercase">

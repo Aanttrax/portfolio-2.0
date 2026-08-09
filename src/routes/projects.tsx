@@ -1,12 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { projects } from "@/data/projects.data";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Pagination from "@/components/ui/pagination.component";
 import Navbar from "@/components/ui/navbar.component";
 import Contact from "@/components/ui/contact.component";
 
 export const Route = createFileRoute("/projects")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    page: Number(search.page) || 1,
+  }),
   head: () => ({
     meta: [
       { title: "Ariel Rodriguez — Full Stack & DevOps Engineer" },
@@ -48,6 +52,15 @@ const fadeUp = {
 } as const;
 
 function Projects() {
+  const { page: rawPage } = Route.useSearch();
+  const PAGE_SIZE = 6;
+  const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
+  const page = Math.max(1, Math.min(rawPage, totalPages));
+  const paginationNeeded = projects.length > PAGE_SIZE;
+  const startIdx = (page - 1) * PAGE_SIZE;
+  const endIdx = startIdx + PAGE_SIZE;
+  const displayItems = paginationNeeded ? projects.slice(startIdx, endIdx) : projects;
+
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* NAV */}
@@ -72,51 +85,74 @@ function Projects() {
               <h2 className="font-display text-3xl md:text-5xl tracking-wide text-accent-red">
                 SELECTED PROJECTS
               </h2>
-              <p className="mt-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                Showing {Math.max(1, projects.length)} of {projects.length} projects
-              </p>
+              {paginationNeeded ? (
+                <p className="mt-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  Showing {startIdx + 1}–{Math.min(endIdx, projects.length)} of {projects.length}{" "}
+                  projects
+                </p>
+              ) : (
+                <p className="mt-2 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  Showing {Math.max(1, projects.length)} of {projects.length} projects
+                </p>
+              )}
             </motion.div>
           </div>
-          <div className="space-y-16">
-            {projects.map((p, i) => (
-              <motion.a
-                key={p.n}
-                href={p.link}
-                className="group grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-              >
-                {/* Imagen */}
-                <div className="overflow-hidden rounded-xl bg-surface aspect-[16/10]">
-                  <img
-                    src={p.img}
-                    alt={p.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-
-                {/* Información */}
-                <div>
-                  <span className="font-display text-5xl text-accent-red">{p.n}</span>
-
-                  <h2 className="mt-4 text-3xl font-bold tracking-wide">{p.title}</h2>
-
-                  <p className="mt-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                    {p.cat}
-                  </p>
-
-                  <p className="mt-6 text-base leading-8 text-muted-foreground">{p.description}</p>
-
-                  <div className="mt-8 inline-flex items-center gap-3 text-accent-red font-semibold group-hover:gap-5 transition-all">
-                    View project
-                    <ArrowRight className="h-5 w-5" />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={page}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-16"
+            >
+              {displayItems.map((p, i) => (
+                <motion.a
+                  key={p.n}
+                  href={p.link}
+                  className="group grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-center"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
+                  {/* Imagen */}
+                  <div className="overflow-hidden rounded-xl bg-surface aspect-[16/10]">
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   </div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
+
+                  {/* Información */}
+                  <div>
+                    <span className="font-display text-5xl text-accent-red">
+                      {String(startIdx + i + 1).padStart(2, "0")}
+                    </span>
+
+                    <h2 className="mt-4 text-3xl font-bold tracking-wide">{p.title}</h2>
+
+                    <p className="mt-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      {p.cat}
+                    </p>
+
+                    <p className="mt-6 text-base leading-8 text-muted-foreground">
+                      {p.description}
+                    </p>
+
+                    <div className="mt-8 inline-flex items-center gap-3 text-accent-red font-semibold group-hover:gap-5 transition-all">
+                      View project
+                      <ArrowRight className="h-5 w-5" />
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+          {paginationNeeded && (
+            <Pagination currentPage={page} totalPages={totalPages} basePath="/projects" />
+          )}
         </div>
       </section>
       <div className="flex justify-center py-12">
