@@ -4,6 +4,7 @@ import { skills } from "@/data/skills.data";
 import { process } from "@/data/processes.data";
 import { projects } from "@/data/projects.data";
 import { motion } from "framer-motion";
+import CountUp from "@/components/ui/count-up.component";
 import { ArrowRight, Globe, Sparkles } from "lucide-react";
 import heroPortrait from "@/assets/hero-portrait.webp";
 import Navbar from "@/components/ui/navbar.component";
@@ -150,7 +151,9 @@ function Portfolio() {
                 key={s.n}
                 className="flex items-center gap-4 border-t border-border pt-4 min-w-[180px]"
               >
-                <div className="font-display text-5xl text-accent-red leading-none">{s.n}</div>
+                <div className="font-display text-5xl text-accent-red leading-none min-w-[3ch]">
+                  <CountUp target={parseInt(s.n)} />+
+                </div>
                 <div className="text-[10px] tracking-widest font-semibold">
                   <div>{s.l1}</div>
                   <div>{s.l2}</div>
@@ -173,7 +176,7 @@ function Portfolio() {
           <Link
             to="/projects"
             search={{ page: 1 }}
-            className="hidden md:flex items-center gap-2 text-xs tracking-widest font-semibold text-accent-red hover:gap-4 transition-all"
+            className="hidden md:inline-flex items-center gap-2 text-xs tracking-widest font-semibold text-accent-red hover:gap-4 transition-all"
           >
             VIEW ALL PROJECTS <ArrowRight className="h-4 w-4" />
           </Link>
@@ -215,6 +218,13 @@ function Portfolio() {
             </motion.a>
           ))}
         </div>
+        <Link
+          to="/projects"
+          search={{ page: 1 }}
+          className="flex md:hidden justify-center items-center gap-2 mt-10 text-xs tracking-widest font-semibold text-accent-red"
+        >
+          VIEW ALL PROJECTS <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
 
       {/* EDU / PROCESS / QUOTE */}

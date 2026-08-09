@@ -7,7 +7,7 @@ export default function Navbar() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="flex items-center justify-between px-6 md:px-12 py-6"
+      className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between px-6 md:px-12 py-6"
     >
       <Link to="/" className="text-[10px] md:text-xs tracking-[0.2em] font-semibold">
         <div className="text-accent-red">FULL STACK & DEVOPS ENGINEER</div>
