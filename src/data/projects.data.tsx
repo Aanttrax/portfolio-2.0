@@ -1,3 +1,4 @@
+import project8 from "@/assets/project-8.webp";
 import project1 from "@/assets/project-1.webp";
 import project2 from "@/assets/project-2.webp";
 import project3 from "@/assets/project-3.webp";
@@ -9,6 +10,15 @@ import project7 from "@/assets/project-7.webp";
 export const projects = [
   {
     n: "01",
+    img: project8,
+    title: "GitHub Stats API",
+    cat: "Serverless API",
+    description:
+      "GitHub profile stats and top-languages SVG badges rendered at the edge with Cloudflare Workers. Built with TypeScript, it features stale-while-revalidate data caching through Cloudflare KV, hand-written SVG templates, per-IP rate limiting, and a fully automated CI/CD pipeline with GitHub Actions.",
+    link: "https://github.com/Aanttrax/github-stats-api",
+  },
+  {
+    n: "02",
     img: project1,
     title: "Portfolio-2.0",
     cat: "Landing Page",
@@ -17,7 +27,7 @@ export const projects = [
     link: "https://aanttrax.github.io/portfolio-2.0/",
   },
   {
-    n: "02",
+    n: "03",
     img: project2,
     title: "Portfolio-1.0",
     cat: "Landing Page",
@@ -26,7 +36,7 @@ export const projects = [
     link: "https://aanttrax.github.io/portfolio/",
   },
   {
-    n: "03",
+    n: "04",
     img: project3,
     title: "Task App",
     cat: "Task Tracker",
@@ -35,7 +45,7 @@ export const projects = [
     link: "https://aanttrax.github.io/task-app/",
   },
   {
-    n: "04",
+    n: "05",
     img: project4,
     title: "Rick and Morty Angular App",
     cat: "Landing Page",
@@ -44,7 +54,7 @@ export const projects = [
     link: "https://bright-frangollo-70b51c.netlify.app/characters-list",
   },
   {
-    n: "05",
+    n: "06",
     img: project5,
     title: "orchestrator",
     cat: "Api Gateway",
@@ -53,7 +63,7 @@ export const projects = [
     link: "https://github.com/Aanttrax/orchestrator",
   },
   {
-    n: "06",
+    n: "07",
     img: project6,
     title: "ms-tasks",
     cat: "Api-CRUD",
@@ -62,7 +72,7 @@ export const projects = [
     link: "https://github.com/Aanttrax/ms-tasks",
   },
   {
-    n: "07",
+    n: "08",
     img: project7,
     title: "ms-auth",
     cat: "Api-Authentication",
